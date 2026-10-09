@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10251d">
+  <title>TerraQuest AI | Touch Grass</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="script.js"></script>
+</head>
+<body>
+  <header class="navbar">
+    <a href="#" class="logo">✳ TERRA<span>QUEST</span></a>
+    <nav id="nav">
+      <a href="#explore">Explore</a>
+      <a href="#nature-lens">AI Nature Lens</a>
+      <a href="#journal">My Journal</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <span class="eyebrow">YOUR INVITATION TO THE OUTSIDE</span>
+        <h1>The world is<br>better <em>in person.</em></h1>
+        <p>
+          Less scrolling. More exploring. Let AI help you discover
+          the beautiful world waiting just outside your door.
+        </p>
+        <div class="hero-buttons">
+          <a href="#explore" class="btn primary">Find an adventure ↗</a>
+          <button class="btn secondary" id="surpriseBtn">✦ Surprise me</button>
+        </div>
+        <div class="hero-stats">
+          <span>🌿 <strong id="completedCount">0</strong> missions completed</span>
+          <span>◷ <strong id="minutesCount">0</strong> minutes outside</span>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <div class="sun"></div>
+        <div class="mountain mountain-back"></div>
+        <div class="mountain mountain-mid"></div>
+        <div class="mountain mountain-front"></div>
+        <div class="art-card">
+          <span>🌱</span>
+          <div>
+            <strong>Today's reminder</strong>
+            <small>Wonder is just outside.</small>
+          </div>
+        </div>
+        <div class="art-caption">FIELD NOTES · GO OUTSIDE</div>
+      </div>
+    </section>
+
+    <section class="section" id="explore">
+      <div class="section-heading">
+        <span class="eyebrow">01 / EXPLORE</span>
+        <h2>Pick a little adventure.</h2>
+        <p>Small missions. Real-world wonder.</p>
+      </div>
+
+      <div class="filters">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="notice">Notice</button>
+        <button class="filter" data-filter="move">Move</button>
+        <button class="filter" data-filter="grow">Grow</button>
+        <button class="filter" data-filter="listen">Listen</button>
+      </div>
+
+      <div class="mission-grid" id="missionGrid"></div>
+
+      <div class="generator">
+        <div>
+          <span class="eyebrow">YOUR PERSONAL NATURE GUIDE</span>
+          <h3>A little adventure, made for you.</h3>
+          <p>Choose your available time and let TerraQuest create an outdoor activity.</p>
+        </div>
+        <div class="generator-controls">
+          <label for="timeSelect">Available time</label>
+          <select id="timeSelect">
+            <option value="5">5 minutes</option>
+            <option value="15" selected>15 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="60">1 hour</option>
+          </select>
+
+          <label for="interestSelect">I want to</label>
+          <select id="interestSelect">
+            <option value="notice">Notice nature</option>
+            <option value="move">Move around</option>
+            <option value="grow">Grow something</option>
+            <option value="listen">Listen closely</option>
+          </select>
+
+          <button class="btn primary" id="generateBtn">Generate my mission ✦</button>
+        </div>
+      </div>
+      <div class="generated hidden" id="generatedMission" aria-live="polite"></div>
+    </section>
+
+    <section class="lens-section" id="nature-lens">
+      <div class="lens-copy">
+        <span class="eyebrow">02 / OPEN-WEIGHT AI</span>
+        <h2>Curiosity,<br><em>meet nature.</em></h2>
+        <p>
+          Discover what's in your nature photos with an image
+          classification model running in your browser.
+        </p>
+        <ul>
+          <li>✦ No API key required</li>
+          <li>✦ Browser-based model inference</li>
+          <li>✦ Your photo is processed locally by the model</li>
+        </ul>
+        <p class="status" id="modelStatus">AI model loads when you start an analysis.</p>
+      </div>
+
+      <div class="upload-card">
+        <div class="upload-zone" id="uploadZone">
+          <input type="file" id="imageInput" accept="image/*" hidden>
+          <div id="uploadPlaceholder">
+            <span class="upload-icon">⌁</span>
+            <h3>Bring nature a little closer</h3>
+            <p>Choose a plant, bird, or outdoor photo.</p>
+            <button class="btn secondary" id="chooseImageBtn">Choose a photo</button>
+          </div>
+          <img id="previewImage" class="preview hidden" alt="Selected nature photo">
+        </div>
+        <button class="btn primary full-width" id="analyzeBtn" disabled>
+          ✦ Analyze with open AI
+        </button>
+        <div id="analysisResult" class="analysis-result hidden" aria-live="polite"></div>
+        <p class="disclaimer">
+          Results are suggestions, not verified species identification.
+          Never eat or touch an unknown plant based on AI results.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="journal">
+      <div class="section-heading">
+        <span class="eyebrow">03 / YOUR MEMORIES</span>
+        <h2>Your little field journal.</h2>
+        <p>Save the small things you discover outdoors.</p>
+      </div>
+
+      <div class="journal-layout">
+        <form id="journalForm" class="journal-form">
+          <h3>Add a field note</h3>
+
+          <label for="noteTitle">What did you notice?</label>
+          <input id="noteTitle" maxlength="80" required
+                 placeholder="A tiny yellow flower...">
+
+          <label for="noteDetails">Your observations</label>
+          <textarea id="noteDetails" rows="3" maxlength="400"
+                    placeholder="What did you see or hear?"></textarea>
+
+          <label for="noteType">Discovery type</label>
+          <select id="noteType">
+            <option>Plant</option>
+            <option>Bird</option>
+            <option>Sky</option>
+            <option>Walk</option>
+            <option>Other</option>
+          </select>
+
+          <label for="noteMinutes">Minutes outside</label>
+          <input id="noteMinutes" type="number" min="1" max="600" value="10">
+
+          <button class="btn primary full-width" type="submit">
+            Save field note ↗
+          </button>
+        </form>
+
+        <div class="journal-entries">
+          <div class="entries-heading">
+            <h3>Recent discoveries</h3>
+            <span id="noteCount">0 notes</span>
+          </div>
+          <div id="journalList"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div>
+        <span class="eyebrow">A GENTLE NUDGE</span>
+        <h2>The world is waiting outside.</h2>
+        <p>Close this tab. Open the door. Find one thing you haven't noticed before.</p>
+      </div>
+      <button class="btn light" id="breakBtn">I'm heading out ↗</button>
+    </section>
+  </main>
+
+  <footer>
+    <a href="#" class="logo">✳ TERRA<span>QUEST</span></a>
+    <p>Built for the real world 🌱</p>
+    <a href="#explore">Find an adventure ↑</a>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
